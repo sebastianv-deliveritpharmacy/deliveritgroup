@@ -1,16 +1,75 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSlider from "../components/HeroSlider.vue";
+import GroupIntro from "../components/GroupIntro.astro";
+import SiteDetails from "../components/SiteDetails.vue";
+import StickyHeader from "../components/StickyHeader.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="DeliverIt Group" description="Infusion • Retail • Telehealth">
+  <StickyHeader />
+  <HeroSlider client:only="vue" />
+  <GroupIntro id="about" />
+
+<!-- Infusion: deep red -->
+<SiteDetails
+  client:visible
+  id="infusion"
+  eyebrow="Specialty Infusion"
+  title="DeliverIt Infusion & Specialty"
+  description="Warm, private infusion suites and expert care. Easy referrals, insurance coordination, and at-home training resources."
+  points={[
+    'Neurology IVIG & specialty therapies',
+    'Referral forms and benefits verification',
+    'Education & training videos for home infusion',
+  ]}
+  href="https://deliveritpharmacy.com/infusion/"
+  image="/images/infusion-hero.jpg"
+  alt="Infusion suite"
+  ctaLabel="DeliverIt Infusion"
+  flip={false}
+  accent="#a12d35"   
+/>
+
+<!-- Retail: bright green -->
+<SiteDetails
+  client:visible
+  id="retail"
+  eyebrow="Retail & Family Care"
+  title="DeliverIt Retail Pharmacy"
+  description="Local prescriptions, vaccinations, compounding, and home delivery — built around the needs of families."
+  points={[
+    'Fast refills & free delivery options',
+    'Vaccinations and everyday wellness',
+    'Compounding services',
+  ]}
+  href="https://deliveritpharmacy.com/retail/"
+  image="/images/retail-hero.jpg"
+  alt="Retail pharmacy counter"
+  ctaLabel="DeliverIt Retail"
+  flip={true}
+  accent="#00b341"  
+/>
+
+<!-- Telehealth: keep default brand or pick a third -->
+<SiteDetails
+  client:visible
+  id="DeliverItHealth"
+  eyebrow="Telehealth"
+  title="DeliverIt Health"
+  description="Doctors online—chat, phone, or video. Digital prescriptions and convenient family coverage."
+  points={[
+    'Same-day online visits',
+    'HIPAA-ready & secure',
+    'Transparent pricing',
+  ]}
+  href="https://deliverithealth.com/"
+  image="/images/telehealth-hero.jpg"
+  alt="Telehealth visit"
+  ctaLabel="DeliverIt Health"
+  flip={false}
+  accent="#040494"
+/>
+
+
+</BaseLayout>

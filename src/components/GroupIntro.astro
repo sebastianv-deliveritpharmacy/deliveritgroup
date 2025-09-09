@@ -1,0 +1,90 @@
+---
+import Reveal from "./Reveal.vue";
+const { id = "about", class: className = "" } = Astro.props;
+---
+
+<section id={id} class={`group ${className}`}>
+  <div class="shell">
+    <div class="grid">
+      <div class="copy">
+        <Reveal client:visible delay="0s">
+          <p class="eyebrow">About DeliverIt Group</p>
+        </Reveal>
+
+        <Reveal client:visible delay=".08s">
+          <h2 class="title">A family-first pharmacy group</h2>
+        </Reveal>
+
+        <Reveal client:visible delay=".14s">
+          <p class="lead">DeliverIt Group brings together:</p>
+        </Reveal>
+
+        <Reveal client:visible delay=".2s">
+          <ul class="points">
+            <li>Compassionate clinicians &amp; pharmacists</li>
+            <li>Clear communication &amp; easy referrals</li>
+            <li>Insurance coordination &amp; transparent pricing</li>
+            <li>Convenient in-clinic, at-home, &amp; virtual options</li>
+          </ul>
+        </Reveal>
+      </div>
+
+      <div class="art">
+        <div class="card">
+          <img src="/images/group-family.jpg" alt="DeliverIt Group—family care" />
+        </div>
+        <!-- ✅ not self-closing -->
+        <div class="blob blob--green"></div>
+        <div class="blob blob--red"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.group {
+  position: relative;
+  padding: clamp(42px, 8vw, 96px) 0;
+  background: var(--bg);
+  /* ✅ prevent horizontal overflow from blurred blobs */
+  overflow: clip;
+}
+@supports not (overflow: clip) {
+  .group { overflow: hidden; }
+}
+
+.shell { width: min(1280px, 92%); margin: 0 auto; }
+.grid { display: grid; gap: clamp(20px, 3vw, 40px); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 980px){ .grid { grid-template-columns: 1.1fr 1fr; } }
+
+.copy { max-width: 720px; }
+.eyebrow { color: var(--berry); font-weight: 900; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 .5rem; }
+.title { margin: 0 0 .6rem; font-size: clamp(1.8rem, 1.4rem + 2vw, 2.6rem); color: var(--ink); }
+.lead { margin: 0 0 1rem; color: var(--muted); line-height: 1.65; }
+
+/* lists */
+.points { margin: .4rem 0 1.2rem; padding: 0; list-style: none; display: grid; gap: .5rem; }
+.points li { padding-left: 1.2rem; position: relative; color: var(--ink); }
+.points li::before {
+  content: "";
+  position: absolute; left: 0; top: .45rem; width: .6rem; height: .6rem;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 3px rgba(54,170,103,.14);
+} /* ✅ removed extra '}' */
+
+.art { position: relative; }
+.card { border-radius: clamp(16px, 2vw, 22px); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.20); }
+.card img { display:block; width: 100%; height: clamp(260px, 40vw, 480px); object-fit: cover; }
+
+/* blobs */
+.blob { position: absolute; border-radius: 50%; filter: blur(38px); opacity: .3; pointer-events: none; }
+.blob--green {
+  width: 32vmin; height: 32vmin; left: -6vmin; top: -6vmin;
+  background: radial-gradient(circle at 30% 30%, rgba(54,170,103,.38), transparent 60%);
+}
+.blob--red {
+  width: 36vmin; height: 36vmin; right: -6vmin; bottom: -8vmin;
+  background: radial-gradient(circle at 70% 70%, rgba(161,45,53,.28), transparent 60%);
+}
+</style>

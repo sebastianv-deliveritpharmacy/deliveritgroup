@@ -1,0 +1,17 @@
+:root{
+  --brand:#36aa67;        /* primary green */
+  --brand-dark:#2f8f57;
+  --berry:#a12d35;        /* deep red */
+  --ink:#0b1320;
+  --muted:#5b6677;
+  --bg:#f7faf8;
+  --card: rgba(0,0,0,.04);
+  --stroke: rgba(0,0,0,.08);
+  --focus:#ffd166;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#e7edf4; --muted:#a7b1bf; --bg:#0a1210;
+    --card: rgba(255,255,255,.06); --stroke: rgba(255,255,255,.12);
+  }
+}

@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.13.5"
+    "@astrojs/vue": "^5.1.0",
+    "@vueuse/core": "^13.9.0",
+    "astro": "^5.13.5",
+    "swiper": "^11.2.10"
   }
 }

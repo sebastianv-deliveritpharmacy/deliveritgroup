@@ -1,0 +1,137 @@
+---
+const {
+  logoSrc = "/images/logo-deliverit.png",
+  logoDarkSrc = "/logo-deliverit-white.svg",
+} = Astro.props;
+
+const links = [
+  { label: "Home",      href: "#home" },
+  { label: "About",     href: "#about" },
+  { label: "Infusion",  href: "#infusion" },
+  { label: "Retail",    href: "#retail" },
+  { label: "DeliverIt Health",href: "#DeliverItHealth" },
+];
+---
+
+<header class="site-header" aria-label="Top navigation">
+  <div class="shell">
+    <a class="brand" href="#home" aria-label="DeliverIt Group">
+      <picture>
+        <source srcset={logoDarkSrc} media="(prefers-color-scheme: dark)" />
+        <img src={logoSrc} alt="DeliverIt logo" width="160" height="40" />
+      </picture>
+    </a>
+
+    <button class="menu" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" aria-label="Primary">
+      {links.map(l => (
+        <a class="nav-link" href={l.href}>{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  // Mobile toggle
+  const header = document.currentScript.closest('.site-header');
+  const btn = header.querySelector('.menu');
+  const nav = header.querySelector('.nav');
+  btn.addEventListener('click', () => {
+    const open = header.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+  // Close on link click (mobile)
+  header.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => {
+    header.classList.remove('open');
+    btn.setAttribute('aria-expanded', "false");
+  }));
+
+  // Scroll spy: highlight active link
+  const links = [...header.querySelectorAll('.nav-link')];
+  const map = new Map(links.map(a => [a.getAttribute('href'), a]));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = `#${e.target.id}`;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: "-45% 0px -45% 0px", threshold: 0.01 });
+
+  ["home","about","infusion","retail","telehealth"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+
+<style>
+:root{ --brand:#36aa67; --berry:#a12d35; --header-h:72px; }
+
+a {
+    text-decoration: none;
+}
+.site-header{
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: saturate(140%) blur(8px);
+  background: rgba(255,255,255,.86);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+@media (prefers-color-scheme: dark){
+  .site-header{ background: rgba(10,18,16,.55); border-color: rgba(255,255,255,.12); }
+}
+.site-header::after{ /* thin brand line */
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+  background: linear-gradient(90deg, var(--brand), var(--berry));
+  opacity:.9;
+}
+
+.shell{
+  width: min(1280px, 92%); margin: 0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  min-height: var(--header-h);
+}
+.brand img{     object-fit: contain;
+    width: 81px;
+    height: 82px; display:block; }
+
+.menu{
+  display:inline-flex; flex-direction:column; gap:5px; padding:10px;
+  background:transparent; border:0; cursor:pointer;
+}
+.menu span{ width:22px; height:2px; background:currentColor; border-radius:2px; }
+@media (min-width: 900px){ .menu{ display:none; } }
+
+.nav{
+  position: fixed; inset: calc(var(--header-h)) 0 auto 0;
+  background: inherit; backdrop-filter: inherit; border-bottom: inherit;
+  display: grid; gap: 8px; padding: 12px 16px; transform: translateY(-8px);
+  opacity: 0; visibility: hidden; transition: .2s opacity, .2s transform, .2s visibility;
+}
+.site-header.open .nav{ opacity: 1; visibility: visible; transform: translateY(0); }
+@media (min-width: 900px){
+  .nav{
+    position: static; inset: auto; background: transparent; border: 0; display:flex; gap: 12px;
+    opacity: 1; visibility: visible; transform:none; padding:0;
+  }
+}
+
+.nav-link{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:.5rem .8rem; border-radius:999px; font-weight:700;
+  color: inherit; border:1px solid transparent;
+}
+.nav-link:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
+@media (prefers-color-scheme: dark){
+  .nav-link:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12); }
+}
+.nav-link.active{
+  background: linear-gradient(90deg, var(--brand), var(--berry));
+  color: white; box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Nice anchor offset so sections don't hide under header */
+:global(section[id]){ scroll-margin-top: calc(var(--header-h) + 12px); }
+</style>
