@@ -1,7 +1,6 @@
 ---
 const {
   logoSrc = "/images/logo-deliverit.png",
-  logoDarkSrc = "/images/logo-deliverit.png",
 } = Astro.props;
 
 const links = [
@@ -15,10 +14,8 @@ const links = [
 <header class="site-header" aria-label="Top navigation">
   <div class="shell">
     <a class="brand" href="#home" aria-label="DeliverIt Group">
-      <picture>
-        <source srcset={logoDarkSrc} media="(prefers-color-scheme: dark)" />
-        <img src={logoSrc} alt="DeliverIt logo" width="160" height="40" />
-      </picture>
+      <!-- Always light logo -->
+      <img src={logoSrc} alt="DeliverIt logo" width="160" height="40" />
     </a>
 
     <!-- Hamburger button -->
@@ -86,9 +83,6 @@ a { text-decoration: none; }
   background: rgba(255,255,255,.86);
   border-bottom: 1px solid rgba(0,0,0,.08);
 }
-@media (prefers-color-scheme: dark){
-  .site-header{ background: rgba(10,18,16,.55); border-color: rgba(255,255,255,.12); }
-}
 .site-header::after{
   content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
   background: linear-gradient(90deg, var(--brand), var(--berry));
@@ -118,12 +112,11 @@ a { text-decoration: none; }
 /* Nav */
 .nav{
   position: fixed; top: var(--header-h); left: 0; right: 0;
-  background: inherit; backdrop-filter: inherit; border-bottom: inherit;
+  background: #fff; /* Always light */
   display: grid; gap: 8px; padding: 12px 16px;
   transform: translateY(-8px);
   opacity: 0; visibility: hidden;
   transition: .2s opacity, .2s transform, .2s visibility;
-  background-color: #fff;
 }
 .site-header.open .nav{ opacity: 1; visibility: visible; transform: translateY(0); }
 @media (min-width: 900px){
@@ -137,9 +130,7 @@ a { text-decoration: none; }
   color: inherit; border:1px solid transparent;
 }
 .nav-link:hover{ background: rgba(0,0,0,.04); border-color: rgba(0,0,0,.08); }
-@media (prefers-color-scheme: dark){
-  .nav-link:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12); }
-}
+
 .nav-link.active{
   background: linear-gradient(90deg, var(--brand), var(--berry));
   color: white; box-shadow: 0 8px 20px rgba(0,0,0,.15);
