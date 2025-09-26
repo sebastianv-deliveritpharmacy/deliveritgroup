@@ -8,6 +8,7 @@
   --card: rgba(0,0,0,.04);
   --stroke: rgba(0,0,0,.08);
   --focus:#ffd166;
+    color-scheme: light; /* Always render light theme */
 }
 @media (prefers-color-scheme: dark){
   :root{

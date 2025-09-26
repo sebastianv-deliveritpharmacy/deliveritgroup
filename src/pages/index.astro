@@ -6,8 +6,9 @@ import SiteDetails from "../components/SiteDetails.vue";
 import StickyHeader from "../components/StickyHeader.astro";
 ---
 
-<BaseLayout title="DeliverIt Group" description="Infusion • Retail • Telehealth">
+<BaseLayout title="DeliverIt Group" description="Infusion • Retail • Telehealth • Research & Development">
   <StickyHeader />
+  
   <HeroSlider client:only="vue" />
   <GroupIntro id="about" />
 
@@ -70,6 +71,28 @@ import StickyHeader from "../components/StickyHeader.astro";
   flip={false}
   accent="#040494"
 />
+
+<!-- Research & Development: innovation blue/teal -->
+<SiteDetails
+  client:visible
+  id="DeliverItRAD"
+  eyebrow="Research & Development"
+  title="DeliverIt RAD"
+  description="DeliverIt RAD partners with leading U.S. multinational companies to accelerate research and development of new medications, with a focus on oncology, cardiology, and neurology."
+  points={[
+    'Strategic collaboration with multinational American companies',
+    'Development of innovative medications and therapies',
+    'Focus areas: oncology, cardiology, and neurology',
+    'Advancing healthcare through research and development',
+  ]}
+  href="#"
+  image="/images/rd-hero.jpg"
+  alt="Research and development team"
+  ctaLabel="DeliverIt RAD"
+  flip={true}
+  accent="#008c95" 
+/>
+
 
 
 </BaseLayout>

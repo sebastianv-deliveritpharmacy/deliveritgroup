@@ -5,11 +5,10 @@ const {
 } = Astro.props;
 
 const links = [
-  { label: "Home",      href: "#home" },
-  { label: "About",     href: "#about" },
-  { label: "Infusion",  href: "#infusion" },
-  { label: "Retail",    href: "#retail" },
-  { label: "DeliverIt Health",href: "#DeliverItHealth" },
+  { label: "Infusion", href: "#infusion" },
+  { label: "Retail", href: "#retail" },
+  { label: "DeliverIt Health", href: "#DeliverItHealth" },
+  { label: "DeliverIt Research & Development", href: "#DeliverItRAD" },
 ];
 ---
 
@@ -22,6 +21,7 @@ const links = [
       </picture>
     </a>
 
+    <!-- Hamburger button -->
     <button class="menu" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -35,44 +35,51 @@ const links = [
 </header>
 
 <script is:inline>
-  // Mobile toggle
-  const header = document.currentScript.closest('.site-header');
-  const btn = header.querySelector('.menu');
-  const nav = header.querySelector('.nav');
-  btn.addEventListener('click', () => {
-    const open = header.classList.toggle('open');
-    btn.setAttribute('aria-expanded', String(open));
-  });
-  // Close on link click (mobile)
-  header.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', () => {
-    header.classList.remove('open');
-    btn.setAttribute('aria-expanded', "false");
-  }));
+  document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
 
-  // Scroll spy: highlight active link
-  const links = [...header.querySelectorAll('.nav-link')];
-  const map = new Map(links.map(a => [a.getAttribute('href'), a]));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = `#${e.target.id}`;
-        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
-      }
+    const btn = header.querySelector('.menu');
+    const nav = header.querySelector('.nav');
+    if (!btn || !nav) return;
+
+    // Toggle menu
+    btn.addEventListener('click', () => {
+      const open = header.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
     });
-  }, { rootMargin: "-45% 0px -45% 0px", threshold: 0.01 });
 
-  ["home","about","infusion","retail","telehealth"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
+    // Close menu when clicking a link (mobile)
+    header.querySelectorAll('.nav-link').forEach(a =>
+      a.addEventListener('click', () => {
+        header.classList.remove('open');
+        btn.setAttribute('aria-expanded', "false");
+      })
+    );
+
+    // Scroll spy
+    const navLinks = [...header.querySelectorAll('.nav-link')];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = `#${e.target.id}`;
+          navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0.01 });
+
+    ["home","about","infusion","retail","DeliverItHealth","DeliverItRAD"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
   });
 </script>
 
 <style>
 :root{ --brand:#36aa67; --berry:#a12d35; --header-h:72px; }
 
-a {
-    text-decoration: none;
-}
+a { text-decoration: none; }
+
 .site-header{
   position: sticky; top: 0; z-index: 100;
   backdrop-filter: saturate(140%) blur(8px);
@@ -82,7 +89,7 @@ a {
 @media (prefers-color-scheme: dark){
   .site-header{ background: rgba(10,18,16,.55); border-color: rgba(255,255,255,.12); }
 }
-.site-header::after{ /* thin brand line */
+.site-header::after{
   content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
   background: linear-gradient(90deg, var(--brand), var(--berry));
   opacity:.9;
@@ -93,29 +100,35 @@ a {
   display:flex; align-items:center; justify-content:space-between;
   min-height: var(--header-h);
 }
-.brand img{     object-fit: contain;
-    width: 81px;
-    height: 82px; display:block; }
+.brand img{ object-fit: contain; width: 81px; height: 82px; display:block; }
 
+/* Hamburger */
 .menu{
   display:inline-flex; flex-direction:column; gap:5px; padding:10px;
   background:transparent; border:0; cursor:pointer;
 }
-.menu span{ width:22px; height:2px; background:currentColor; border-radius:2px; }
+.menu span{ width:22px; height:2px; background:currentColor; border-radius:2px; transition:.3s; }
 @media (min-width: 900px){ .menu{ display:none; } }
 
+/* Animate hamburger into X */
+.site-header.open .menu span:nth-child(1){ transform: rotate(45deg) translateY(7px); }
+.site-header.open .menu span:nth-child(2){ opacity: 0; }
+.site-header.open .menu span:nth-child(3){ transform: rotate(-45deg) translateY(-7px); }
+
+/* Nav */
 .nav{
-  position: fixed; inset: calc(var(--header-h)) 0 auto 0;
+  position: fixed; top: var(--header-h); left: 0; right: 0;
   background: inherit; backdrop-filter: inherit; border-bottom: inherit;
-  display: grid; gap: 8px; padding: 12px 16px; transform: translateY(-8px);
-  opacity: 0; visibility: hidden; transition: .2s opacity, .2s transform, .2s visibility;
+  display: grid; gap: 8px; padding: 12px 16px;
+  transform: translateY(-8px);
+  opacity: 0; visibility: hidden;
+  transition: .2s opacity, .2s transform, .2s visibility;
+  background-color: #fff;
 }
 .site-header.open .nav{ opacity: 1; visibility: visible; transform: translateY(0); }
 @media (min-width: 900px){
-  .nav{
-    position: static; inset: auto; background: transparent; border: 0; display:flex; gap: 12px;
-    opacity: 1; visibility: visible; transform:none; padding:0;
-  }
+  .nav{ position: static; background: transparent; border: 0;
+    display:flex; gap: 12px; opacity:1; visibility:visible; transform:none; padding:0; }
 }
 
 .nav-link{
@@ -132,6 +145,6 @@ a {
   color: white; box-shadow: 0 8px 20px rgba(0,0,0,.15);
 }
 
-/* Nice anchor offset so sections don't hide under header */
+/* Anchor offset so sections don't hide under header */
 :global(section[id]){ scroll-margin-top: calc(var(--header-h) + 12px); }
 </style>

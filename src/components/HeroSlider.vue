@@ -99,6 +99,16 @@ const slides = [
     href: "https://deliverithealth.com/",
     image: "/images/telehealth-hero.jpg",
     alt: "Telehealth consultation"
+  },
+  {
+    eyebrow: "RAD",
+    eyebrowColor: "#008c95",
+    title: "DeliverIt Research & Develpoment",
+    description:
+      "DeliverIt RAD partners with leading U.S. multinational companies to accelerate research and development of new medications, with a focus on oncology, cardiology, and neurology.",
+    href: "#",
+    image: "/images/rd-hero.jpg",
+    alt: "DeliverIt Research & Develpoment"
   }
 ];
 
