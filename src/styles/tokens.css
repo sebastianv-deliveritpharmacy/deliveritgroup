@@ -10,9 +10,28 @@
   --focus:#ffd166;
     color-scheme: light; /* Always render light theme */
 }
-@media (prefers-color-scheme: dark){
+/* @media (prefers-color-scheme: dark){
   :root{
     --ink:#e7edf4; --muted:#a7b1bf; --bg:#0a1210;
     --card: rgba(255,255,255,.06); --stroke: rgba(255,255,255,.12);
   }
+} */
+
+
+/* Tell the UA we only support light controls/scrollbars */
+:root { color-scheme: light; }
+
+/* Hard-lock base colors */
+html, body {
+  background: #ffffff;
+  color: #111111;
 }
+
+/* Neutralize any leftover dark-mode media rules (belt & suspenders) */
+/* @media (prefers-color-scheme: dark) {
+  :root { color-scheme: light; }
+  html, body { background: #ffffff; color: #111111; }
+} */
+
+/* If you previously added dark styles, delete them.
+   If you must keep them, override with !important on your light tokens. */

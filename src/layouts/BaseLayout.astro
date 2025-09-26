@@ -11,7 +11,13 @@ const {
   <link rel="shortcut icon" href="/logo-deliverit.png" type="image/png">
   <!-- Optional niceties -->
   <link rel="apple-touch-icon" href="/logo-deliverit.png"> <!-- 180x180 recommended -->
-  <meta name="theme-color" content="#00b341">
+    <!-- Always light UI for browser widgets -->
+  <meta name="color-scheme" content="light" />
+  <!-- Status bar / browser UI stays light on mobile -->
+  <!-- iOS Safari PWA status bar stays light -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <meta name="theme-color" content="#ffffff" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
@@ -36,7 +42,7 @@ const {
         --stroke: rgba(17, 97, 93, 0.18);
         --ring: rgba(0, 177, 64, 0.28);
       }
-      @media (prefers-color-scheme: dark) {
+      /* @media (prefers-color-scheme: dark) {
         :root {
           --ink: #e5e7eb;
           --muted: #94a3b8;
@@ -45,7 +51,7 @@ const {
           --stroke: rgba(255,255,255,0.12);
           --ring: rgba(0, 177, 64, 0.22);
         }
-      }
+      } */
       * { box-sizing: border-box;
       }
       html, body { height: 100% }
