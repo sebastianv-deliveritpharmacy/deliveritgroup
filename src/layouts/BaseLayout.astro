@@ -75,13 +75,198 @@ const {
       }
       .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,177,64,.30); }
       .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-      footer { color: var(--muted); font-size: .92rem; padding: 48px 0; text-align:center; }
+      /* ---------- Footer ---------- */
+      :root {
+        --footer-bg: #3f4143;   /* close to your screenshot */
+        --footer-ink: #e5e7eb;
+        --footer-muted: #cbd5e1;
+        --footer-stroke: rgba(255,255,255,.08);
+      }
+
+      .site-footer {
+        margin-top: 56px;
+        background: radial-gradient(1200px 420px at 0% 0%, rgba(251,191,36,.08), transparent 60%),
+                    radial-gradient(1200px 420px at 100% 0%, rgba(6,182,212,.08), transparent 60%),
+                    var(--footer-bg);
+        color: var(--footer-muted);
+      }
+
+      .site-footer .wrap {
+        width: min(1100px, 92%);
+        margin: 0 auto;
+        padding: 56px 0 36px;
+        text-align: center;
+      }
+
+      /* Logo */
+      .footer-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .footer-brand img {
+        height: 64px;
+        width: auto;
+      }
+      .footer-brand h2 {
+        margin: 0;
+        font-weight: 800;
+        letter-spacing: .5px;
+        color: var(--footer-ink);
+      }
+
+      /* Accreditation row */
+      .accreditations {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 28px;
+        align-items: center;
+        justify-items: center;
+        margin: 40px 0 8px;
+      }
+      .accreditation {
+        display: grid;
+        grid-template-rows: auto auto;
+        justify-items: center;
+        gap: 12px;
+        text-align: center;
+      }
+      .accreditation img {
+        height: 78px; /* tweak to your assets */
+        width: auto;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+      }
+
+      .accreditation.logo img {
+        width: 240px;
+        height: auto;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+      }
+
+      .accreditation .caption {
+        font-size: .95rem;
+        line-height: 1.35;
+      }
+
+      /* 3-up on md+ */
+      @media (min-width: 820px) {
+        .accreditations { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      /* Social */
+      .footer-social {
+        margin: 36px 0 4px;
+      }
+      .footer-social h3 {
+        margin: 0 0 14px;
+        font-weight: 700;
+        letter-spacing: .25rem;
+        color: var(--footer-ink);
+        font-size: .9rem;
+      }
+      .social-list {
+        padding: 0;
+        display: inline-flex;
+        gap: 18px;
+        list-style: none;
+      }
+      .social {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.06);
+        border: 1px solid var(--footer-stroke);
+        transition: transform .2s ease, background .2s ease;
+      }
+      .social:hover { transform: translateY(-2px); background: rgba(255,255,255,.12); }
+      .social svg { width: 22px; height: 22px; fill: var(--footer-ink); }
+
+      /* Fine rule + copyright */
+      .footer-rule {
+        width: min(860px, 92%);
+        margin: 24px auto 12px;
+        border: none;
+        height: 1px;
+        background: var(--footer-stroke);
+      }
+      .footer-copy {
+        font-size: .9rem;
+        padding-bottom: 32px;
+      }
+
+      .icon-white {
+        filter: invert(1);
+      }
+
     </style>
   </head>
   <body>
     <slot />
-    <footer>
-      © {new Date().getFullYear()} DeliverIt Family Pharmacy — Infusion • Retail • Telehealth • Research & Development
-    </footer>
+    <footer class="site-footer" aria-labelledby="footer-brand">
+  <div class="wrap">
+
+    <!-- Accreditations -->
+    <div class="accreditations" role="list">
+      <!-- URAC -->
+      <div class="accreditation" role="listitem">
+        <!-- Swap src with your actual asset path (SVG/PNG) -->
+        <img src="/images/urac-logo.png" alt="URAC logo" loading="lazy" />
+        <div class="caption">
+          <strong>URAC Accredited</strong> September 1st, 2024:<br />
+          Health Care Accreditation’s Gold Star Standard
+        </div>
+      </div>
+
+      <!-- LegitScript -->
+      <div class="accreditation logo" role="listitem">
+        <img src="/images/logo-deliverit-white.png" alt="DeliverIt Logo" loading="lazy" />
+      </div>
+
+      <!-- ACHC -->
+      <div class="accreditation" role="listitem">
+        <img src="/images/achc-logo.png" alt="ACHC Accreditation" loading="lazy" />
+        <div class="caption"><strong>ACHC</strong> Accredited Since 2019</div>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="footer-social">
+      <h3>FOLLOW US</h3>
+      <nav aria-label="Social media">
+        <ul class="social-list" role="list">
+          <li>
+            <a class="social" href="https://www.facebook.com/DeliverItPharmacy/" aria-label="Facebook" target="_blank" rel="noopener">
+              <!-- Facebook icon -->
+              <img src="/images/facebook-svgrepo-com.svg" alt="Facebook" width="24" height="24" class="icon-white" />
+            </a>
+          </li>
+          <li>
+            <a class="social" href="https://www.instagram.com/DeliverItPharmacy/" aria-label="Instagram" target="_blank" rel="noopener">
+              <!-- Instagram icon -->
+              <img src="/images/instagram-svgrepo-com.svg" alt="Facebook" width="24" height="24" class="icon-white" />
+            </a>
+          </li>
+          <li>
+            <a class="social" href="https://www.yelp.com/biz/deliverit-pharmacy-sugar-land-sugar-land" aria-label="Yelp" target="_blank" rel="noopener">
+              <!-- Yelp icon -->
+              <img src="/images/yelp-svgrepo-com.svg" alt="Facebook" width="24" height="24" class="icon-white" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <hr class="footer-rule" />
+
+    <div class="footer-copy">
+      © {new Date().getFullYear()} DeliverIt Family Pharmacy — Infusion • Retail • Telehealth • Research &amp; Development
+    </div>
+  </div>
+</footer>
+
   </body>
 </html>
