@@ -11,7 +11,6 @@ import StickyHeader from "../components/StickyHeader.astro";
   
   <HeroSlider client:only="vue" />
   <GroupIntro id="about" />
-
 <!-- Infusion: deep red -->
 <SiteDetails
   client:visible
@@ -91,6 +90,27 @@ import StickyHeader from "../components/StickyHeader.astro";
   ctaLabel="DeliverIt RAD"
   flip={true}
   accent="#008c95" 
+/>
+
+  <!-- GCC International Service Training -->
+<SiteDetails
+  client:visible
+  id="gccTraining"
+  eyebrow="International Training"
+  title="GCC Service & Training Program"
+  description="Bilingual support, SOP onboarding, QA standards, and device teach-backs for partners across Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman."
+  points={[
+    'On-site & virtual training (EN/AR)',
+    'SOP onboarding and compounding standards',
+    'Device teach-backs and documentation',
+    'Pharmacy QA and partner support',
+  ]}
+  href="#"
+  image="/images/gcc-training-hero.jpg"
+  alt="GCC service and training session"
+  ctaLabel="GCC Training Program"
+  flip={false}
+  accent="#3467c7"
 />
 
 

@@ -71,6 +71,17 @@ const animating = ref(false);
 
 const slides = [
   {
+    eyebrow: "International Training",
+    eyebrowColor: "#3467c7", // brand blue
+    title: "GCC Service Training Program",
+    description:
+      "On-site & virtual training for partners across Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman — SOP onboarding, device teach-backs, QA/compounding standards, and bilingual materials (EN/AR).",
+    href: "/#gccTraining",                // replace with your training/partners URL when ready
+    secondaryHref: "/#gccTraining",       // optional: link to a PDF/Deck or contact page
+    image: "/images/gcc-training-hero.jpg",
+    alt: "GCC international service training across KSA, UAE, Qatar, Kuwait, Bahrain, and Oman"
+  },
+  {
     eyebrow: "Specialty Infusion",
     eyebrowColor: "var(--berry)",
     title: "DeliverIt Infusion & Specialty",
@@ -129,7 +140,7 @@ function onSlideEnd() { animating.value = false; }
   --stroke: rgba(0,0,0,.08);
 }
 
-.hero { position: relative; background: var(--bg); }
+.hero { position: relative; background: #fff; }
 
 a {
     text-decoration: none;
