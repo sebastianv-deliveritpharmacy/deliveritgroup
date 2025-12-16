@@ -5,7 +5,7 @@
       :modules="modules"
       :slides-per-view="1"
       :loop="true"
-      :speed="2800"
+      :speed="2300"
       :autoplay="{ delay: 4200, disableOnInteraction: false }"
       :effect="'fade'"
       :fadeEffect="{ crossFade: true }"
